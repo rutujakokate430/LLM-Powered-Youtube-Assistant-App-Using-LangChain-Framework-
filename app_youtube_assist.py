@@ -1,6 +1,6 @@
-#from key import openai_api_key
+from key import openai_api_key
 import os
-os.environ['OPENAI_API_KEY']="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"
+os.environ['OPENAI_API_KEY']=openai_api_key
 
 import streamlit as st
 from langchain.document_loaders import YoutubeLoader
