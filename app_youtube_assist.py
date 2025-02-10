@@ -18,14 +18,14 @@ def create_db_from_youtube_video_url(video_url: str) -> FAISS:
      loader=YoutubeLoader.from_youtube_url(video_url)
      transcript=loader.load()
 
-     text_splitter= RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+     text_splitter= RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)  #Dynamic text splitting ensuring context is preserved.
      docs=text_splitter.split_documents(transcript)
 
      db = FAISS.from_documents(docs, embeddings)
      return db
 
 
-def get_response_from_query(db, query, k=4):
+def get_response_from_query(db, query, k=4):  # k=4, meaning the function retrieves the 4 most similar documents to the query.
      # text-devinci can handle only 4097 tokens
      docs = db.similarity_search(query, k=k)
      docs_page_content=" ".join([d.page_content for d in docs])
